@@ -33,9 +33,11 @@ const Index = () => {
             Experience luxury chalets in the most beautiful locations across Jordan
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="hero" size="lg">
-              Explore Chalets
-            </Button>
+            <Link to="/chalets">
+              <Button variant="hero" size="lg">
+                Explore Chalets
+              </Button>
+            </Link>
             <ShinyButton className="text-emerald-800 border border-emerald-300/40 bg-emerald-50/40">
               Book Your Stay
             </ShinyButton>
