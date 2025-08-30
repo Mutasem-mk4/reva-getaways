@@ -67,8 +67,8 @@ const BookingForm = ({ chaletName }: BookingFormProps) => {
   };
 
   return (
-    <div className="bg-gradient-hero p-8 rounded-xl shadow-elegant w-full max-w-4xl mx-auto">
-      <h3 className="text-2xl font-bold mb-6 text-primary-foreground">
+    <div className="bg-card p-6 rounded-xl shadow-card">
+      <h3 className="text-2xl font-bold mb-6 text-foreground">
         {chaletName ? `Book ${chaletName}` : "Make a Booking Inquiry"}
       </h3>
       <form onSubmit={handleSubmit} className="space-y-4">
