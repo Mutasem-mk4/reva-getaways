@@ -12,7 +12,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <img src="/reva-logo.svg" alt="Reva Chalets" className="h-8 w-8" />
+            <img src="/lovable-uploads/4767e45c-9364-4ef5-bc21-7ae89e684cb6.png" alt="Reva Chalets" className="h-8 w-8" />
             <span className="text-2xl font-bold bg-gradient-wood bg-clip-text text-transparent">
               Reva Chalets
             </span>
