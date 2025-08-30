@@ -2,23 +2,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
-import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
-import { MapPin, Users, Star, Filter } from "lucide-react";
-import { useState } from "react";
+import { MapPin, Users, Star } from "lucide-react";
 import chalet1 from "@/assets/chalet-1.jpg";
 import chalet2 from "@/assets/chalet-2.jpg";
 import chalet3 from "@/assets/chalet-3.jpg";
 
 const Chalets = () => {
-  const [filters, setFilters] = useState({
-    guests: "",
-    city: "",
-    priceRange: [0, 300]
-  });
   const chalets = [
     {
       id: 1,
@@ -58,15 +48,6 @@ const Chalets = () => {
     }
   ];
 
-  const cities = ["All Cities", "Dead Sea", "Wadi Musa", "Wadi Rum"];
-
-  const filteredChalets = chalets.filter((chalet) => {
-    const matchesGuests = !filters.guests || chalet.guests >= parseInt(filters.guests);
-    const matchesCity = !filters.city || filters.city === "All Cities" || chalet.location.includes(filters.city);
-    const matchesPrice = chalet.price >= filters.priceRange[0] && chalet.price <= filters.priceRange[1];
-    return matchesGuests && matchesCity && matchesPrice;
-  });
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -82,66 +63,8 @@ const Chalets = () => {
             </p>
           </div>
 
-          {/* Filters Section */}
-          <div className="bg-card rounded-xl p-6 mb-8 shadow-card">
-            <div className="flex items-center mb-4">
-              <Filter className="w-5 h-5 mr-2 text-primary" />
-              <h2 className="text-lg font-semibold text-foreground">Filter Chalets</h2>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {/* Guests Filter */}
-              <div className="space-y-2">
-                <Label htmlFor="guests">Number of Guests</Label>
-                <Select value={filters.guests} onValueChange={(value) => setFilters({...filters, guests: value})}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Any number" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="">Any number</SelectItem>
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-                      <SelectItem key={num} value={num.toString()}>
-                        {num}+ guests
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* City Filter */}
-              <div className="space-y-2">
-                <Label htmlFor="city">City</Label>
-                <Select value={filters.city} onValueChange={(value) => setFilters({...filters, city: value})}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select city" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {cities.map((city) => (
-                      <SelectItem key={city} value={city}>
-                        {city}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Price Range Filter */}
-              <div className="space-y-2 md:col-span-2">
-                <Label>Price Range: {filters.priceRange[0]} JD - {filters.priceRange[1]} JD / night</Label>
-                <Slider
-                  value={filters.priceRange}
-                  onValueChange={(value) => setFilters({...filters, priceRange: value})}
-                  max={300}
-                  min={0}
-                  step={10}
-                  className="w-full"
-                />
-              </div>
-            </div>
-          </div>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredChalets.map((chalet) => (
+            {chalets.map((chalet) => (
               <Card key={chalet.id} className="group overflow-hidden hover:shadow-elegant transition-all duration-300">
                 <div className="relative h-64 overflow-hidden">
                   <img
