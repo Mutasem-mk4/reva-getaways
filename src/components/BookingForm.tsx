@@ -68,12 +68,12 @@ const BookingForm = ({ chaletName }: BookingFormProps) => {
 
   return (
     <div className="bg-card p-6 rounded-xl shadow-card">
-      <h3 className="text-2xl font-bold mb-6 text-foreground">
+      <h3 className="text-2xl font-bold mb-6 text-emerald-600 dark:text-emerald-400">
         {chaletName ? `Book ${chaletName}` : "Make a Booking Inquiry"}
       </h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <Label htmlFor="name">Full Name</Label>
+          <Label htmlFor="name" className="text-emerald-600 dark:text-emerald-400">Full Name</Label>
           <Input
             id="name"
             name="name"
@@ -85,7 +85,7 @@ const BookingForm = ({ chaletName }: BookingFormProps) => {
         </div>
         
         <div>
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email" className="text-emerald-600 dark:text-emerald-400">Email</Label>
           <Input
             id="email"
             name="email"
@@ -98,7 +98,7 @@ const BookingForm = ({ chaletName }: BookingFormProps) => {
         </div>
         
         <div>
-          <Label htmlFor="phone">Phone Number</Label>
+          <Label htmlFor="phone" className="text-emerald-600 dark:text-emerald-400">Phone Number</Label>
           <Input
             id="phone"
             name="phone"
@@ -112,7 +112,7 @@ const BookingForm = ({ chaletName }: BookingFormProps) => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <Label htmlFor="checkIn">Check-in Date</Label>
+            <Label htmlFor="checkIn" className="text-emerald-600 dark:text-emerald-400">Check-in Date</Label>
             <Input
               id="checkIn"
               name="checkIn"
@@ -124,7 +124,7 @@ const BookingForm = ({ chaletName }: BookingFormProps) => {
           </div>
           
           <div>
-            <Label htmlFor="checkOut">Check-out Date</Label>
+            <Label htmlFor="checkOut" className="text-emerald-600 dark:text-emerald-400">Check-out Date</Label>
             <Input
               id="checkOut"
               name="checkOut"
@@ -137,7 +137,7 @@ const BookingForm = ({ chaletName }: BookingFormProps) => {
         </div>
         
         <div>
-          <Label htmlFor="guests">Number of Guests</Label>
+          <Label htmlFor="guests" className="text-emerald-600 dark:text-emerald-400">Number of Guests</Label>
           <select
             id="guests"
             name="guests"
@@ -154,7 +154,7 @@ const BookingForm = ({ chaletName }: BookingFormProps) => {
         </div>
         
         <div>
-          <Label htmlFor="message">Special Requests (Optional)</Label>
+          <Label htmlFor="message" className="text-emerald-600 dark:text-emerald-400">Special Requests (Optional)</Label>
           <Textarea
             id="message"
             name="message"

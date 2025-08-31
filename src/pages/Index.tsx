@@ -43,6 +43,52 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Search Filters */}
+      <section className="py-12 px-4 bg-gradient-nature">
+        <div className="container mx-auto">
+          <div className="bg-card p-6 rounded-xl shadow-card">
+            <h3 className="text-2xl font-bold mb-6 text-center text-foreground">Find Your Perfect Chalet</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-2 text-foreground">City</label>
+                <select className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm">
+                  <option value="">Select City</option>
+                  <option value="dead-sea">Dead Sea</option>
+                  <option value="petra">Petra</option>
+                  <option value="wadi-rum">Wadi Rum</option>
+                  <option value="amman">Amman</option>
+                  <option value="aqaba">Aqaba</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 text-foreground">Number of Guests</label>
+                <select className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm">
+                  <option value="">Any</option>
+                  <option value="1-2">1-2 Guests</option>
+                  <option value="3-4">3-4 Guests</option>
+                  <option value="5-6">5-6 Guests</option>
+                  <option value="7-8">7-8 Guests</option>
+                  <option value="9+">9+ Guests</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 text-foreground">Price Range (JD/night)</label>
+                <select className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm">
+                  <option value="">Any Price</option>
+                  <option value="0-100">0 - 100 JD</option>
+                  <option value="100-200">100 - 200 JD</option>
+                  <option value="200-300">200 - 300 JD</option>
+                  <option value="300+">300+ JD</option>
+                </select>
+              </div>
+            </div>
+            <div className="mt-6 text-center">
+              <Button variant="hero" size="lg">Search Chalets</Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Featured Chalets */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
