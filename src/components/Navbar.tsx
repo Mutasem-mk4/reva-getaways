@@ -12,7 +12,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-3">
-            <img src="/reva-logo-new.png" alt="Reva Chalets" className="h-12 w-12 drop-shadow-md transition-transform hover:scale-105" />
+            <img src="/lovable-uploads/4767e45c-9364-4ef5-bc21-7ae89e684cb6.png" alt="Reva Chalets" className="h-12 w-12 drop-shadow-md transition-transform hover:scale-105" />
             <span className="text-2xl font-bold bg-gradient-wood bg-clip-text text-transparent">
               Reva Chalets
             </span>
@@ -62,7 +62,8 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <ShinyButton className="text-emerald-800 dark:text-emerald-200 border border-emerald-300/40 bg-emerald-50/40">
+            <ShinyButton className="text-emerald-800 dark:text-emerald-200 border border-emerald-300/40 bg-emerald-50/40 flex items-center gap-2">
+              <img src="/lovable-uploads/4767e45c-9364-4ef5-bc21-7ae89e684cb6.png" alt="Reva Logo" className="h-5 w-5" />
               Book Now
             </ShinyButton>
           </div>
@@ -128,7 +129,8 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <ShinyButton className="w-full text-emerald-800 dark:text-emerald-200 border border-emerald-300/40 bg-emerald-50/40">
+            <ShinyButton className="w-full text-emerald-800 dark:text-emerald-200 border border-emerald-300/40 bg-emerald-50/40 flex items-center justify-center gap-2">
+              <img src="/lovable-uploads/4767e45c-9364-4ef5-bc21-7ae89e684cb6.png" alt="Reva Logo" className="h-5 w-5" />
               Book Now
             </ShinyButton>
           </div>
