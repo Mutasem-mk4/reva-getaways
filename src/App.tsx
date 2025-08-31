@@ -33,9 +33,9 @@ const App = () => {
         {showSplash ? (
           <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200 dark:from-emerald-900 dark:via-emerald-800 dark:to-emerald-700">
             <img
-              src="/lovable-uploads/4767e45c-9364-4ef5-bc21-7ae89e684cb6.png"
+              src="/lovable-uploads/e43ec7fa-62cc-41e3-9419-bf7f4caad49e.png"
               alt="Reva Chalets"
-              className="h-24 w-24 animate-in fade-in-0 zoom-in-95 duration-[1300ms] ease-out drop-shadow-lg"
+              className="h-32 w-auto animate-in fade-in-0 zoom-in-95 duration-[1300ms] ease-out drop-shadow-lg"
             />
             <span className="text-xl font-bold tracking-wide text-emerald-800 dark:text-emerald-100 animate-in fade-in-50 slide-in-from-bottom-4 duration-1000 delay-300">
               Reva Chalets
