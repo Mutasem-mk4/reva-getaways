@@ -6,7 +6,7 @@ import { ShinyButton } from "@/components/ui/shiny-button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { MapPin, Users, Star, CheckCircle } from "lucide-react";
-import heroBackground from "@/assets/hero-bg-new.jpg";
+import heroBackground from "@/assets/hero-bg.jpg";
 import chalet1 from "@/assets/chalet-1.jpg";
 import chalet2 from "@/assets/chalet-2.jpg";
 import chalet3 from "@/assets/chalet-3.jpg";

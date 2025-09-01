@@ -6,43 +6,43 @@
 
 @layer base {
   :root {
-    /* Nature-inspired green, brown and cream tones */
-    --background: 45 40% 95%;
-    --foreground: 85 15% 20%;
+    /* Nature-inspired emerald and earth tones */
+    --background: 160 50% 97%;
+    --foreground: 160 30% 15%;
 
-    --card: 45 40% 97%;
-    --card-foreground: 85 15% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 160 30% 15%;
 
-    --popover: 45 40% 97%;
-    --popover-foreground: 85 15% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 30% 15%;
 
-    --primary: 85 15% 27%;
-    --primary-foreground: 45 40% 95%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 45 40% 85%;
-    --secondary-foreground: 85 15% 20%;
+    --secondary: 50 30% 95%;
+    --secondary-foreground: 160 30% 15%;
 
-    --muted: 45 30% 88%;
-    --muted-foreground: 85 10% 40%;
+    --muted: 50 20% 92%;
+    --muted-foreground: 160 15% 45%;
 
-    --accent: 45 35% 90%;
-    --accent-foreground: 85 15% 20%;
+    --accent: 160 40% 92%;
+    --accent-foreground: 160 30% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 45 20% 85%;
-    --input: 45 20% 85%;
-    --ring: 85 15% 27%;
+    --border: 160 20% 90%;
+    --input: 160 20% 90%;
+    --ring: 160 84% 39%;
 
     /* Reva Chalets Brand Colors */
-    --emerald-deep: 85 15% 20%;
-    --emerald-primary: 85 15% 27%;
-    --emerald-light: 85 20% 75%;
-    --wood-dark: 30 35% 30%;
-    --wood-medium: 30 35% 45%;
-    --wood-light: 45 40% 75%;
-    --cream: 45 40% 90%;
+    --emerald-deep: 160 95% 25%;
+    --emerald-primary: 160 84% 39%;
+    --emerald-light: 160 60% 85%;
+    --wood-dark: 30 25% 20%;
+    --wood-medium: 30 40% 60%;
+    --wood-light: 35 60% 85%;
+    --cream: 45 50% 95%;
     
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(var(--emerald-primary)), hsl(var(--emerald-deep)));
@@ -77,42 +77,42 @@
   }
 
   .dark {
-    --background: 85 15% 8%;
-    --foreground: 45 40% 90%;
+    --background: 160 15% 8%;
+    --foreground: 50 40% 92%;
 
-    --card: 85 20% 10%;
-    --card-foreground: 45 40% 90%;
+    --card: 160 20% 10%;
+    --card-foreground: 50 40% 92%;
 
-    --popover: 85 20% 10%;
-    --popover-foreground: 45 40% 90%;
+    --popover: 160 20% 10%;
+    --popover-foreground: 50 40% 92%;
 
-    --primary: 85 20% 40%;
-    --primary-foreground: 85 15% 8%;
+    --primary: 160 60% 45%;
+    --primary-foreground: 160 15% 8%;
 
-    --secondary: 85 10% 15%;
-    --secondary-foreground: 45 40% 90%;
+    --secondary: 160 10% 15%;
+    --secondary-foreground: 50 40% 92%;
 
-    --muted: 85 8% 18%;
-    --muted-foreground: 85 10% 60%;
+    --muted: 160 8% 18%;
+    --muted-foreground: 160 10% 65%;
 
-    --accent: 85 12% 20%;
-    --accent-foreground: 45 40% 90%;
+    --accent: 160 12% 20%;
+    --accent-foreground: 50 40% 92%;
 
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 85 15% 20%;
-    --input: 85 15% 20%;
-    --ring: 85 20% 40%;
+    --border: 160 15% 20%;
+    --input: 160 15% 20%;
+    --ring: 160 60% 45%;
     
     /* Dark mode adjustments */
-    --emerald-deep: 85 20% 20%;
-    --emerald-primary: 85 20% 35%;
-    --emerald-light: 85 15% 25%;
-    --wood-dark: 30 30% 15%;
-    --wood-medium: 30 30% 25%;
-    --wood-light: 45 25% 20%;
-    --cream: 45 20% 15%;
+    --emerald-deep: 160 70% 30%;
+    --emerald-primary: 160 60% 45%;
+    --emerald-light: 160 30% 25%;
+    --wood-dark: 30 20% 12%;
+    --wood-medium: 30 25% 40%;
+    --wood-light: 35 30% 20%;
+    --cream: 45 15% 15%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
