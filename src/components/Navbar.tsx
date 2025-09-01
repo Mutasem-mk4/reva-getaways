@@ -62,8 +62,7 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <ShinyButton className="text-emerald-800 dark:text-emerald-200 border border-emerald-300/40 bg-emerald-50/40 flex items-center gap-2">
-              <img src="/lovable-uploads/4767e45c-9364-4ef5-bc21-7ae89e684cb6.png" alt="Reva Logo" className="h-5 w-5" />
+            <ShinyButton className="text-emerald-800 dark:text-emerald-200 border border-emerald-300/40 bg-emerald-50/40">
               Book Now
             </ShinyButton>
           </div>
@@ -129,8 +128,7 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <ShinyButton className="w-full text-emerald-800 dark:text-emerald-200 border border-emerald-300/40 bg-emerald-50/40 flex items-center justify-center gap-2">
-              <img src="/lovable-uploads/4767e45c-9364-4ef5-bc21-7ae89e684cb6.png" alt="Reva Logo" className="h-5 w-5" />
+            <ShinyButton className="w-full text-emerald-800 dark:text-emerald-200 border border-emerald-300/40 bg-emerald-50/40">
               Book Now
             </ShinyButton>
           </div>
