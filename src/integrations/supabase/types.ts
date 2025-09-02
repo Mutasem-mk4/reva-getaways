@@ -14,16 +14,154 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      farm_availability: {
+        Row: {
+          created_at: string
+          date: string
+          farm_id: string
+          id: string
+          is_available: boolean
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          farm_id: string
+          id?: string
+          is_available?: boolean
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          farm_id?: string
+          id?: string
+          is_available?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "farm_availability_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      farm_images: {
+        Row: {
+          created_at: string
+          farm_id: string
+          id: string
+          image_url: string
+          is_primary: boolean | null
+        }
+        Insert: {
+          created_at?: string
+          farm_id: string
+          id?: string
+          image_url: string
+          is_primary?: boolean | null
+        }
+        Update: {
+          created_at?: string
+          farm_id?: string
+          id?: string
+          image_url?: string
+          is_primary?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "farm_images_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      farms: {
+        Row: {
+          bedrooms: number | null
+          created_at: string
+          description: string | null
+          guests: number | null
+          id: string
+          location: string | null
+          name: string
+          owner_id: string
+          price_per_night: number | null
+          rating: number | null
+          review_count: number | null
+          updated_at: string
+        }
+        Insert: {
+          bedrooms?: number | null
+          created_at?: string
+          description?: string | null
+          guests?: number | null
+          id?: string
+          location?: string | null
+          name: string
+          owner_id: string
+          price_per_night?: number | null
+          rating?: number | null
+          review_count?: number | null
+          updated_at?: string
+        }
+        Update: {
+          bedrooms?: number | null
+          created_at?: string
+          description?: string | null
+          guests?: number | null
+          id?: string
+          location?: string | null
+          name?: string
+          owner_id?: string
+          price_per_night?: number | null
+          rating?: number | null
+          review_count?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id: string
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      is_admin: {
+        Args: { user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      user_role: "admin" | "farm_owner"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +288,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      user_role: ["admin", "farm_owner"],
+    },
   },
 } as const
