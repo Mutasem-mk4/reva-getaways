@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import Chalets from "./pages/Chalets";
 import ChaletDetail from "./pages/ChaletDetail";
@@ -14,6 +16,8 @@ import Services from "./pages/Services";
 import Blog from "./pages/Blog";
 import Testimonials from "./pages/Testimonials";
 import NotFound from "./pages/NotFound";
+import { Auth } from "./pages/Auth";
+import { Dashboard } from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -28,8 +32,9 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
         {showSplash ? (
           <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200 dark:from-emerald-900 dark:via-emerald-800 dark:to-emerald-700">
             <img
@@ -53,10 +58,17 @@ const App = () => {
             <Route path="/services" element={<Services />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

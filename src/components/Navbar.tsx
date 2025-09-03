@@ -1,11 +1,18 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn, User, LogOut } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ShinyButton } from "@/components/ui/shiny-button";
+import { useAuth } from "@/contexts/AuthContext";
+import { Badge } from "@/components/ui/badge";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, profile, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <nav className="fixed top-0 w-full bg-background/95 backdrop-blur-md z-50 border-b border-border">
@@ -62,9 +69,32 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <ShinyButton className="text-emerald-800 dark:text-emerald-200 border border-emerald-300/40 bg-emerald-50/40">
-              Book Now
-            </ShinyButton>
+            <div className="flex items-center space-x-4">
+              {user ? (
+                <div className="flex items-center space-x-3">
+                  <Badge variant={profile?.role === 'admin' ? 'destructive' : 'secondary'}>
+                    {profile?.full_name || 'User'}
+                  </Badge>
+                  <Link to="/dashboard">
+                    <Button variant="outline" size="sm">
+                      <User className="w-4 h-4 mr-2" />
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <Button variant="outline" size="sm" onClick={handleSignOut}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </Button>
+                </div>
+              ) : (
+                <Link to="/auth">
+                  <Button variant="outline" size="sm">
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Login
+                  </Button>
+                </Link>
+              )}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -128,9 +158,32 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <ShinyButton className="w-full text-emerald-800 dark:text-emerald-200 border border-emerald-300/40 bg-emerald-50/40">
-              Book Now
-            </ShinyButton>
+            <div className="space-y-3 mt-4">
+              {user ? (
+                <div className="space-y-2">
+                  <Badge variant={profile?.role === 'admin' ? 'destructive' : 'secondary'} className="w-full justify-center">
+                    {profile?.full_name || 'User'}
+                  </Badge>
+                  <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="outline" size="sm" className="w-full">
+                      <User className="w-4 h-4 mr-2" />
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <Button variant="outline" size="sm" className="w-full" onClick={handleSignOut}>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </Button>
+                </div>
+              ) : (
+                <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
+                  <Button variant="outline" size="sm" className="w-full">
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Login
+                  </Button>
+                </Link>
+              )}
+            </div>
           </div>
         )}
       </div>
