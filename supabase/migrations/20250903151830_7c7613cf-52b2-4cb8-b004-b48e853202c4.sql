@@ -1,0 +1,21 @@
+-- Fix remaining search path warning for handle_new_user function
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER 
+SET search_path = public
+AS $$
+BEGIN
+  INSERT INTO public.profiles (id, email, full_name, role)
+  VALUES (
+    NEW.id,
+    NEW.email,
+    COALESCE(NEW.raw_user_meta_data->>'full_name', ''),
+    CASE 
+      WHEN NEW.email = 'kharma.mutasem@gmail.com' THEN 'admin'
+      ELSE 'farm_owner'
+    END
+  );
+  RETURN NEW;
+END;
+$$;
