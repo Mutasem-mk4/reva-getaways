@@ -9,6 +9,8 @@ import { LogOut, Plus, Settings, Calendar, Image, Users } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { FarmForm } from '@/components/FarmForm';
+import { ImageManagement } from '@/components/ImageManagement';
+import { AvailabilityManagement } from '@/components/AvailabilityManagement';
 import { supabase } from '@/integrations/supabase/client';
 
 interface Farm {
@@ -30,6 +32,7 @@ export function Dashboard() {
   const [farmStats, setFarmStats] = useState({ total: 0, available: 0 });
   const [loadingData, setLoadingData] = useState(true);
   const [showFarmForm, setShowFarmForm] = useState(false);
+  const [selectedFarm, setSelectedFarm] = useState<Farm | null>(null);
 
   useEffect(() => {
     if (user && profile) {
@@ -236,13 +239,18 @@ export function Dashboard() {
                           <span>{farm.review_count} reviews</span>
                         </div>
                         <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
-                            Edit
-                          </Button>
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => setSelectedFarm(farm)}
+                          >
                             Manage Images
                           </Button>
-                          <Button variant="outline" size="sm">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => setSelectedFarm(farm)}
+                          >
                             Availability
                           </Button>
                         </div>
@@ -255,43 +263,41 @@ export function Dashboard() {
           </TabsContent>
 
           <TabsContent value="availability">
-            <Card>
-              <CardHeader>
-                <CardTitle>Availability Calendar</CardTitle>
-                <CardDescription>
-                  Manage when your farms are available for booking
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-16">
+            {selectedFarm ? (
+              <AvailabilityManagement 
+                farmId={selectedFarm.id} 
+                farmName={selectedFarm.name}
+              />
+            ) : (
+              <Card>
+                <CardContent className="text-center py-16">
                   <Calendar className="h-16 w-16 text-foreground-secondary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Calendar Coming Soon</h3>
+                  <h3 className="text-xl font-semibold mb-2">Select a Farm</h3>
                   <p className="text-foreground-secondary">
-                    The availability management calendar will be implemented here.
+                    Please select a farm from the farms tab to manage its availability.
                   </p>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )}
           </TabsContent>
 
           <TabsContent value="images">
-            <Card>
-              <CardHeader>
-                <CardTitle>Image Management</CardTitle>
-                <CardDescription>
-                  Upload and manage farm images
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-16">
+            {selectedFarm ? (
+              <ImageManagement 
+                farmId={selectedFarm.id} 
+                farmName={selectedFarm.name}
+              />
+            ) : (
+              <Card>
+                <CardContent className="text-center py-16">
                   <Image className="h-16 w-16 text-foreground-secondary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Image Gallery Coming Soon</h3>
+                  <h3 className="text-xl font-semibold mb-2">Select a Farm</h3>
                   <p className="text-foreground-secondary">
-                    Farm image upload and management will be implemented here.
+                    Please select a farm from the farms tab to manage its images.
                   </p>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )}
           </TabsContent>
 
           {isAdmin() && (
