@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { LogOut, Plus, Settings, Calendar, Image, Users } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { FarmForm } from '@/components/FarmForm';
 import { supabase } from '@/integrations/supabase/client';
 
 interface Farm {
@@ -28,6 +29,7 @@ export function Dashboard() {
   const [farms, setFarms] = useState<Farm[]>([]);
   const [farmStats, setFarmStats] = useState({ total: 0, available: 0 });
   const [loadingData, setLoadingData] = useState(true);
+  const [showFarmForm, setShowFarmForm] = useState(false);
 
   useEffect(() => {
     if (user && profile) {
@@ -74,6 +76,14 @@ export function Dashboard() {
 
   const handleSignOut = async () => {
     await signOut();
+  };
+
+  const handleAddFarm = () => {
+    setShowFarmForm(true);
+  };
+
+  const handleFarmFormSuccess = () => {
+    fetchFarms(); // Refresh the farms list
   };
 
   return (
@@ -174,7 +184,7 @@ export function Dashboard() {
           <TabsContent value="farms" className="space-y-6">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-semibold">Farm Management</h2>
-              <Button>
+              <Button onClick={handleAddFarm}>
                 <Plus className="w-4 h-4 mr-2" />
                 Add New Farm
               </Button>
@@ -195,7 +205,7 @@ export function Dashboard() {
                       : 'You haven\'t added any farms yet. Start by adding your first farm property.'
                     }
                   </p>
-                  <Button>
+                  <Button onClick={handleAddFarm}>
                     <Plus className="w-4 h-4 mr-2" />
                     Add Your First Farm
                   </Button>
@@ -307,6 +317,12 @@ export function Dashboard() {
           )}
         </Tabs>
       </div>
+
+      <FarmForm
+        open={showFarmForm}
+        onClose={() => setShowFarmForm(false)}
+        onSuccess={handleFarmFormSuccess}
+      />
 
       <Footer />
     </div>
