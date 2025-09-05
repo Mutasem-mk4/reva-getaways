@@ -37,7 +37,8 @@ const FeaturedChalets = () => {
 
   const fetchFeaturedChalets = async () => {
     try {
-      const { data: farms, error } = await supabase
+      // First fetch farms with their images
+      const { data: farms, error: farmsError } = await supabase
         .from('farms')
         .select(`
           *,
@@ -48,24 +49,35 @@ const FeaturedChalets = () => {
         `)
         .limit(3);
 
-      if (error) throw error;
+      if (farmsError) throw farmsError;
+
+      if (!farms || farms.length === 0) {
+        setChalets([]);
+        return;
+      }
 
       // Fetch owner emails separately
-      const ownerIds = farms?.map(farm => farm.owner_id) || [];
-      const { data: profiles } = await supabase
+      const ownerIds = farms.map(farm => farm.owner_id);
+      const { data: profiles, error: profilesError } = await supabase
         .from('profiles')
         .select('id, email')
         .in('id', ownerIds);
 
-      const farmsWithOwnerEmail = farms?.map(farm => ({
+      if (profilesError) {
+        console.error('Error fetching profiles:', profilesError);
+      }
+
+      // Combine farms with owner emails
+      const farmsWithOwnerEmail = farms.map(farm => ({
         ...farm,
         images: farm.farm_images || [],
-        owner_email: profiles?.find(p => p.id === farm.owner_id)?.email
-      })) || [];
+        owner_email: profiles?.find(p => p.id === farm.owner_id)?.email || 'Unknown'
+      }));
 
       setChalets(farmsWithOwnerEmail);
     } catch (error) {
       console.error('Error fetching featured chalets:', error);
+      setChalets([]);
     } finally {
       setLoading(false);
     }
