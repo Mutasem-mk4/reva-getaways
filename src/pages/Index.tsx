@@ -6,10 +6,137 @@ import { ShinyButton } from "@/components/ui/shiny-button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { MapPin, Users, Star, CheckCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useState } from "react";
 import heroBackground from "@/assets/hero-bg-new.jpg";
 import chalet1 from "@/assets/chalet-1.jpg";
-import chalet2 from "@/assets/chalet-2.jpg";
-import chalet3 from "@/assets/chalet-3.jpg";
+
+interface Farm {
+  id: string;
+  name: string;
+  description: string | null;
+  location: string | null;
+  price_per_night: number | null;
+  guests: number;
+  bedrooms: number;
+  rating: number;
+  review_count: number;
+  created_at: string;
+  owner_id: string;
+  images?: { image_url: string; is_primary: boolean }[];
+  owner_email?: string;
+}
+
+const FeaturedChalets = () => {
+  const [chalets, setChalets] = useState<Farm[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchFeaturedChalets();
+  }, []);
+
+  const fetchFeaturedChalets = async () => {
+    try {
+      const { data: farms, error } = await supabase
+        .from('farms')
+        .select(`
+          *,
+          farm_images (
+            image_url,
+            is_primary
+          )
+        `)
+        .limit(3);
+
+      if (error) throw error;
+
+      // Fetch owner emails separately
+      const ownerIds = farms?.map(farm => farm.owner_id) || [];
+      const { data: profiles } = await supabase
+        .from('profiles')
+        .select('id, email')
+        .in('id', ownerIds);
+
+      const farmsWithOwnerEmail = farms?.map(farm => ({
+        ...farm,
+        images: farm.farm_images || [],
+        owner_email: profiles?.find(p => p.id === farm.owner_id)?.email
+      })) || [];
+
+      setChalets(farmsWithOwnerEmail);
+    } catch (error) {
+      console.error('Error fetching featured chalets:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getImageUrl = (farm: Farm) => {
+    const primaryImage = farm.images?.find(img => img.is_primary);
+    const anyImage = farm.images?.[0];
+    return primaryImage?.image_url || anyImage?.image_url || chalet1;
+  };
+
+  if (loading) {
+    return (
+      <div className="text-center py-8">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {chalets.map((chalet) => (
+        <Card key={chalet.id} className="group overflow-hidden hover:shadow-elegant transition-all duration-300">
+          <div className="relative h-64 overflow-hidden">
+            <img
+              src={getImageUrl(chalet)}
+              alt={chalet.name}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+          </div>
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-xl font-bold text-foreground">{chalet.name}</h3>
+              <div className="flex items-center">
+                <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                <span className="ml-1 text-sm font-semibold">{chalet.rating}</span>
+                <span className="ml-1 text-sm text-muted-foreground">({chalet.review_count})</span>
+              </div>
+            </div>
+            <div className="flex items-center text-muted-foreground mb-4">
+              <MapPin size={16} className="mr-2" />
+              <span>{chalet.location || 'Location not specified'}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <Users size={16} className="mr-2 text-primary" />
+                <span>Up to {chalet.guests} guests</span>
+              </div>
+              <div className="text-right">
+                <span className="text-2xl font-bold text-foreground">
+                  {chalet.price_per_night || 0} JD
+                </span>
+                <span className="text-muted-foreground">/night</span>
+              </div>
+            </div>
+            <Link to={`/chalet/${chalet.id}`}>
+              <Button variant="hero" className="w-full mt-4">
+                View Details
+              </Button>
+            </Link>
+            {chalet.owner_email && (
+              <p className="text-xs text-muted-foreground mt-2">
+                Owner: {chalet.owner_email}
+              </p>
+            )}
+          </div>
+        </Card>
+      ))}
+    </div>
+  );
+};
 
 const Index = () => {
   return (
@@ -105,79 +232,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                id: 1,
-                name: "Dead Sea Luxury Villa",
-                location: "Dead Sea, Jordan",
-                price: 180,
-                guests: 4,
-                rating: 4.8,
-                reviews: 42,
-                image: chalet1
-              },
-              {
-                id: 2,
-                name: "Petra Heritage House",
-                location: "Wadi Musa, Petra",
-                price: 120,
-                guests: 6,
-                rating: 4.9,
-                reviews: 38,
-                image: chalet2
-              },
-              {
-                id: 3,
-                name: "Wadi Rum Desert Camp",
-                location: "Wadi Rum",
-                price: 220,
-                guests: 8,
-                rating: 5.0,
-                reviews: 56,
-                image: chalet3
-              }
-            ].map((chalet) => (
-              <Card key={chalet.id} className="group overflow-hidden hover:shadow-elegant transition-all duration-300">
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={chalet.image}
-                    alt={chalet.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xl font-bold text-foreground">{chalet.name}</h3>
-                    <div className="flex items-center">
-                      <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                      <span className="ml-1 text-sm font-semibold">{chalet.rating}</span>
-                      <span className="ml-1 text-sm text-muted-foreground">({chalet.reviews})</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center text-muted-foreground mb-4">
-                    <MapPin size={16} className="mr-2" />
-                    <span>{chalet.location}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Users size={16} className="mr-2 text-primary" />
-                      <span>Up to {chalet.guests} guests</span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-2xl font-bold text-foreground">{chalet.price} JD</span>
-                      <span className="text-muted-foreground">/night</span>
-                    </div>
-                  </div>
-                  <Link to={`/chalet/${chalet.id}`}>
-                    <Button variant="hero" className="w-full mt-4">
-                      View Details
-                    </Button>
-                  </Link>
-                </div>
-              </Card>
-            ))}
-          </div>
+          <FeaturedChalets />
 
           <div className="text-center mt-12">
             <Link to="/chalets">
