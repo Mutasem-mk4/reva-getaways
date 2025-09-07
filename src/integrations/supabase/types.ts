@@ -44,6 +44,27 @@ export type Database = {
             referencedRelation: "farms"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "farm_availability_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms_with_stats"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_farm_availability_farm_id"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_farm_availability_farm_id"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms_with_stats"
+            referencedColumns: ["id"]
+          },
         ]
       }
       farm_images: {
@@ -74,6 +95,27 @@ export type Database = {
             columns: ["farm_id"]
             isOneToOne: false
             referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "farm_images_farm_id_fkey"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms_with_stats"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_farm_images_farm_id"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_farm_images_farm_id"
+            columns: ["farm_id"]
+            isOneToOne: false
+            referencedRelation: "farms_with_stats"
             referencedColumns: ["id"]
           },
         ]
@@ -124,7 +166,15 @@ export type Database = {
           review_count?: number | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "fk_farms_owner_id"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -155,11 +205,53 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      farms_with_stats: {
+        Row: {
+          available_days_ahead: number | null
+          bedrooms: number | null
+          contact_email: string | null
+          created_at: string | null
+          description: string | null
+          guests: number | null
+          id: string | null
+          location: string | null
+          name: string | null
+          owner_email: string | null
+          owner_id: string | null
+          owner_name: string | null
+          price_per_night: number | null
+          primary_image_url: string | null
+          rating: number | null
+          review_count: number | null
+          total_images: number | null
+          updated_at: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_farms_owner_id"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
+      get_farm_primary_image: {
+        Args: { farm_uuid: string }
+        Returns: string
+      }
+      get_farm_stats: {
+        Args: { farm_uuid: string }
+        Returns: Json
+      }
       is_admin: {
         Args: { user_id: string }
+        Returns: boolean
+      }
+      is_farm_available: {
+        Args: { end_date: string; farm_uuid: string; start_date: string }
         Returns: boolean
       }
     }
