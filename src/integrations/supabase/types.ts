@@ -81,6 +81,7 @@ export type Database = {
       farms: {
         Row: {
           bedrooms: number | null
+          contact_email: string | null
           created_at: string
           description: string | null
           guests: number | null
@@ -95,6 +96,7 @@ export type Database = {
         }
         Insert: {
           bedrooms?: number | null
+          contact_email?: string | null
           created_at?: string
           description?: string | null
           guests?: number | null
@@ -109,6 +111,7 @@ export type Database = {
         }
         Update: {
           bedrooms?: number | null
+          contact_email?: string | null
           created_at?: string
           description?: string | null
           guests?: number | null

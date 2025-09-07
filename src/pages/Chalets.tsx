@@ -20,8 +20,8 @@ interface Farm {
   review_count: number;
   created_at: string;
   owner_id: string;
+  contact_email: string | null;
   images?: { image_url: string; is_primary: boolean }[];
-  owner_email?: string;
 }
 
 const Chalets = () => {
@@ -34,8 +34,7 @@ const Chalets = () => {
 
   const fetchChalets = async () => {
     try {
-      // Fetch farms with their images and owner information
-      const { data: farms, error: farmsError } = await supabase
+      const { data: farms, error } = await supabase
         .from('farms')
         .select(`
           *,
@@ -45,22 +44,14 @@ const Chalets = () => {
           )
         `);
 
-      if (farmsError) throw farmsError;
+      if (error) throw error;
 
-      // Fetch owner emails separately
-      const ownerIds = farms?.map(farm => farm.owner_id) || [];
-      const { data: profiles } = await supabase
-        .from('profiles')
-        .select('id, email')
-        .in('id', ownerIds);
-
-      const farmsWithOwnerEmail = farms?.map(farm => ({
+      const farmsWithImages = farms?.map(farm => ({
         ...farm,
-        images: farm.farm_images || [],
-        owner_email: profiles?.find(p => p.id === farm.owner_id)?.email
+        images: farm.farm_images || []
       })) || [];
 
-      setChalets(farmsWithOwnerEmail);
+      setChalets(farmsWithImages);
     } catch (error) {
       console.error('Error fetching chalets:', error);
     } finally {
@@ -162,9 +153,9 @@ const Chalets = () => {
                         </Button>
                       </Link>
                     </div>
-                    {chalet.owner_email && (
+                    {chalet.contact_email && (
                       <p className="text-xs text-muted-foreground mt-2">
-                        Owner: {chalet.owner_email}
+                        Contact: {chalet.contact_email}
                       </p>
                     )}
                   </div>

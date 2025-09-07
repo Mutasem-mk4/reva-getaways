@@ -22,6 +22,7 @@ export function FarmForm({ open, onClose, onSuccess }: FarmFormProps) {
     name: '',
     description: '',
     location: '',
+    contact_email: '',
     price_per_night: '',
     guests: '1',
     bedrooms: '1'
@@ -39,6 +40,7 @@ export function FarmForm({ open, onClose, onSuccess }: FarmFormProps) {
           name: formData.name,
           description: formData.description || null,
           location: formData.location || null,
+          contact_email: formData.contact_email || null,
           price_per_night: formData.price_per_night ? parseFloat(formData.price_per_night) : null,
           guests: parseInt(formData.guests),
           bedrooms: parseInt(formData.bedrooms),
@@ -56,6 +58,7 @@ export function FarmForm({ open, onClose, onSuccess }: FarmFormProps) {
         name: '',
         description: '',
         location: '',
+        contact_email: '',
         price_per_night: '',
         guests: '1',
         bedrooms: '1'
@@ -113,6 +116,18 @@ export function FarmForm({ open, onClose, onSuccess }: FarmFormProps) {
               value={formData.location}
               onChange={handleChange}
               placeholder="Enter location"
+            />
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="contact_email">Contact Email</Label>
+            <Input
+              id="contact_email"
+              name="contact_email"
+              type="email"
+              value={formData.contact_email}
+              onChange={handleChange}
+              placeholder="Contact email for guests"
             />
           </div>
           

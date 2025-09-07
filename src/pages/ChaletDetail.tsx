@@ -20,8 +20,8 @@ interface Farm {
   review_count: number;
   created_at: string;
   owner_id: string;
+  contact_email: string | null;
   images?: { image_url: string; is_primary: boolean }[];
-  owner_email?: string;
 }
 
 const ChaletDetail = () => {
@@ -51,17 +51,9 @@ const ChaletDetail = () => {
 
       if (error) throw error;
 
-      // Fetch owner email separately
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('email')
-        .eq('id', farm.owner_id)
-        .single();
-
       setChalet({
         ...farm,
-        images: farm.farm_images || [],
-        owner_email: profile?.email
+        images: farm.farm_images || []
       });
     } catch (error) {
       console.error('Error fetching chalet:', error);
@@ -161,9 +153,9 @@ const ChaletDetail = () => {
                     <MapPin size={20} className="mr-2" />
                     <span>{chalet.location || 'Location not specified'}</span>
                   </div>
-                  {chalet.owner_email && (
+                  {chalet.contact_email && (
                     <p className="text-sm text-muted-foreground mt-2">
-                      Owner: {chalet.owner_email}
+                      Contact: {chalet.contact_email}
                     </p>
                   )}
                 </div>
