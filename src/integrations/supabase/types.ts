@@ -216,6 +216,9 @@ export type Database = {
           id: string | null
           location: string | null
           name: string | null
+          owner_email: string | null
+          owner_id: string | null
+          owner_name: string | null
           price_per_night: number | null
           primary_image_url: string | null
           rating: number | null
@@ -223,41 +226,15 @@ export type Database = {
           total_images: number | null
           updated_at: string | null
         }
-        Insert: {
-          available_days_ahead?: never
-          bedrooms?: number | null
-          contact_email?: string | null
-          created_at?: string | null
-          description?: string | null
-          guests?: number | null
-          id?: string | null
-          location?: string | null
-          name?: string | null
-          price_per_night?: number | null
-          primary_image_url?: never
-          rating?: number | null
-          review_count?: number | null
-          total_images?: never
-          updated_at?: string | null
-        }
-        Update: {
-          available_days_ahead?: never
-          bedrooms?: number | null
-          contact_email?: string | null
-          created_at?: string | null
-          description?: string | null
-          guests?: number | null
-          id?: string | null
-          location?: string | null
-          name?: string | null
-          price_per_night?: number | null
-          primary_image_url?: never
-          rating?: number | null
-          review_count?: number | null
-          total_images?: never
-          updated_at?: string | null
-        }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "fk_farms_owner_id"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Functions: {
